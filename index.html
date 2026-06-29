@@ -155,7 +155,6 @@
     color:var(--text-sub);text-align:center;line-height:1.2;white-space:normal;letter-spacing:.3px;
     border-top:1px solid var(--border);padding-top:5px;margin-top:2px;}
   .m-venue .m-city{color:var(--text-muted);font-weight:500;}
-  body.hide-scores .m-mid .sc,body.hide-scores .m-mid .ft{visibility:hidden;}
 
   /* Event card (hover/tap popup on completed matches) */
   .match.has-detail{cursor:pointer;}
@@ -372,7 +371,6 @@
       <div class="ctrl-row">
         <button class="btn" id="print-toggle">☀ Print Mode</button>
         <button class="btn" id="share-btn" title="Copy a link to this view">🔗 Share</button>
-        <button class="btn" id="scores-toggle">Hide Scores</button>
         <button class="btn" id="completed-toggle">Hide Completed</button>
         <button class="btn" id="theme">☀ Light</button>
         <button class="btn" id="reset-btn" title="Clear saved settings (theme, timezone, highlights)">↺ Reset</button>
@@ -647,7 +645,6 @@ let state = {
   twoCol: LS('wc-2col')!=='false',
   theme: LS('wc-theme') || 'light',
   print: false,
-  hideScores: LS('wc-hs')==='true',
   hideCompleted: LS('wc-hc')==='true',
   highlights: JSON.parse(LS('wc-hl')||'[]'),
   city:'all', group:'all', team:'all', view:'schedule'
@@ -701,7 +698,6 @@ function matchPasses(m){
 function applyBodyClasses(){
   document.body.classList.toggle('light', state.theme==='light' && !state.print);
   document.body.classList.toggle('print-mode', state.print);
-  document.body.classList.toggle('hide-scores', state.hideScores);
   document.body.classList.toggle('one-col', !state.twoCol);
 }
 function initControls(){
@@ -711,8 +707,6 @@ function initControls(){
   $('theme').textContent = state.theme==='light' ? '🌙 Dark' : '☀ Light';
   $('print-toggle').textContent = state.print ? '🌙 Exit Print' : '🖨 Print Mode';
   $('print-toggle').classList.toggle('active', state.print);
-  $('scores-toggle').textContent = state.hideScores ? 'Show Scores' : 'Hide Scores';
-  $('scores-toggle').classList.toggle('active', state.hideScores);
   $('completed-toggle').textContent = state.hideCompleted ? 'Show Completed' : 'Hide Completed';
   $('completed-toggle').classList.toggle('active', state.hideCompleted);
   setSwitch('ts-track', state.hour12===false, 'ts-12','ts-24');
@@ -736,10 +730,9 @@ function initControls(){
   $('group-filter').onchange = e=>{ state.group=e.target.value; renderSchedule(); };
   $('team-filter').onchange = e=>{ state.team=e.target.value; renderSchedule(); };
   $('theme').onclick = ()=>{ state.theme=state.theme==='light'?'dark':'light'; localStorage.setItem('wc-theme',state.theme); applyBodyClasses(); initControls(); };
-  $('reset-btn').onclick = ()=>{ ['wc-theme','wc-tz','wc-h12','wc-2col','wc-hs','wc-hc','wc-hl'].forEach(k=>localStorage.removeItem(k)); location.reload(); };
+  $('reset-btn').onclick = ()=>{ ['wc-theme','wc-tz','wc-h12','wc-2col','wc-hc','wc-hl'].forEach(k=>localStorage.removeItem(k)); location.reload(); };
   $('print-toggle').onclick = ()=>{ state.print=!state.print; applyBodyClasses(); initControls(); };
   $('exit-print').onclick = ()=>{ state.print=false; applyBodyClasses(); initControls(); };
-  $('scores-toggle').onclick = ()=>{ state.hideScores=!state.hideScores; localStorage.setItem('wc-hs',state.hideScores); applyBodyClasses(); initControls(); };
   $('completed-toggle').onclick = ()=>{ state.hideCompleted=!state.hideCompleted; localStorage.setItem('wc-hc',state.hideCompleted); initControls(); renderSchedule(); };
   $('time-switch').onclick = ()=>{ state.hour12=!state.hour12; localStorage.setItem('wc-h12',state.hour12); initControls(); render(); };
   $('col-switch').onclick = ()=>{ state.twoCol=!state.twoCol; localStorage.setItem('wc-2col',state.twoCol); applyBodyClasses(); setSwitch('cs-track', state.twoCol, 'cs-1','cs-2'); };
