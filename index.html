@@ -374,6 +374,7 @@
         <button class="btn" id="scores-toggle">Hide Scores</button>
         <button class="btn" id="completed-toggle">Hide Completed</button>
         <button class="btn" id="theme">☀ Light</button>
+        <button class="btn" id="reset-btn" title="Clear saved settings (theme, timezone, highlights)">↺ Reset</button>
       </div>
       <div class="ctrl-row">
         <div class="time-switch" id="time-switch" title="Toggle 12/24 hour time">
@@ -728,6 +729,7 @@ function initControls(){
   $('group-filter').onchange = e=>{ state.group=e.target.value; renderSchedule(); };
   $('team-filter').onchange = e=>{ state.team=e.target.value; renderSchedule(); };
   $('theme').onclick = ()=>{ state.theme=state.theme==='light'?'dark':'light'; localStorage.setItem('wc-theme',state.theme); applyBodyClasses(); initControls(); };
+  $('reset-btn').onclick = ()=>{ ['wc-theme','wc-tz','wc-h12','wc-2col','wc-hs','wc-hc','wc-hl'].forEach(k=>localStorage.removeItem(k)); location.reload(); };
   $('print-toggle').onclick = ()=>{ state.print=!state.print; applyBodyClasses(); initControls(); };
   $('exit-print').onclick = ()=>{ state.print=false; applyBodyClasses(); initControls(); };
   $('scores-toggle').onclick = ()=>{ state.hideScores=!state.hideScores; localStorage.setItem('wc-hs',state.hideScores); applyBodyClasses(); initControls(); };
