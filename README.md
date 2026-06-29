@@ -5,7 +5,7 @@ schedule, live scores, group standings, top scorers, and the knockout bracket �
 in **your local timezone**, with team flags, host-city profiles, and live weather at
 each stadium.
 
-> **▶️ Open the live site:** **https://shajusachin.github.io/fifa-worldcup2026-schedule/**
+> **▶️ Open the live site:** **https://shajusachin.github.io/fwc26/**
 >
 > No install, no login — just open the link in any browser on phone, tablet, or desktop.
 
@@ -30,7 +30,7 @@ each stadium.
 
 ## 🚀 How to use it
 
-1. Go to **https://shajusachin.github.io/fifa-worldcup2026-schedule/**
+1. Go to **https://shajusachin.github.io/fwc26/**
 2. Set your **timezone** in the top bar (it defaults to your device's zone).
 3. Browse the schedule, or use the tabs to switch to **Standings**, **Scorers**,
    **Host Cities**, or the **Knockout** bracket.
@@ -63,8 +63,8 @@ You only need [Node.js](https://nodejs.org/) (v18+). No build step, no dependenc
 
 ```bash
 # clone the repo
-git clone https://github.com/shajusachin/fifa-worldcup2026-schedule.git
-cd fifa-worldcup2026-schedule
+git clone https://github.com/shajusachin/fwc26.git
+cd fwc26
 
 # start a tiny local server
 node scripts/serve.mjs
